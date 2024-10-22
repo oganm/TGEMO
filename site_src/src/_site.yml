@@ -1,0 +1,6 @@
+name: "TGEMO"
+navbar:
+  title: "The Gemma Ontology"
+  left:
+    - text: "Home"
+      href: index.html

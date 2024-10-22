@@ -1,0 +1,10 @@
+---
+title: "{name}"
+---
+
+http://gemma.msl.ubc.ca/ont/{id}
+
+{description}
+
+{ifelse(length(synonyms)>0,
+        paste("Synonym of", paste(synonyms,collapse = ", ")),"")}
