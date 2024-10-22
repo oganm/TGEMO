@@ -17,7 +17,7 @@ base_files %>% lapply(\(x){
     
 })
 
-template = readLines('site_source/term_template') %>% paste(collapse = '\n')
+template = readLines('site_src/src/term_template') %>% paste(collapse = '\n')
 
 for (i in seq_along(tgemo$id)){
     id = tgemo$id[i] %>% gsub(":","_",.,fixed =TRUE)
@@ -26,7 +26,8 @@ for (i in seq_along(tgemo$id)){
         gsub("\\]|\\[|\\\"","",x=.) %>%
         trimws()
     
-    synonyms = tgemo$synonym[[i]]
+    synonyms = tgemo$synonym[[i]] %>% stringr::str_extract_all('(?<=").*?(?=")') %>%
+        unlist
     
     output = glue::glue(template)
     
