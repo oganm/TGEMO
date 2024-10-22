@@ -42,6 +42,7 @@ rmarkdown::render_site('site_src/md')
 
 unlink('docs',recursive = TRUE)
 dir.create('docs')
-file.copy(list.files('site_src/md/_site',full.names = TRUE,recursive = TRUE),
-          'docs',recursive = TRUE)
+file.copy(list.files('site_src/md/_site',include.dirs = TRUE,full.names = TRUE),
+          'docs',
+          recursive = TRUE)
 
