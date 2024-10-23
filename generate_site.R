@@ -28,6 +28,10 @@ for (i in seq_along(tgemo$id)){
         gsub("\\]|\\[|\\\"","",x=.) %>%
         trimws()
     
+    alt_desc = tgemo$property_value[[i]] %>% {.[grepl('hasDefinition',.)]} %>% stringr::str_extract('(?<=").*?(?=")')
+    
+    description = ifelse(is.na(description),alt_desc,description) 
+    
     synonyms = tgemo$synonym[[i]] %>% stringr::str_extract_all('(?<=").*?(?=")') %>%
         unlist
     
