@@ -2,9 +2,10 @@ library(rmarkdown)
 library(ontologyIndex)
 library(magrittr)
 library(glue)
+library(stringr)
 
-download.file('https://github.com/ontodev/robot/releases/download/v1.9.6/robot.jar',destfile = 'robot.jar')
-system('java -jar robot.jar convert --input TGEMO.OWL --format obo --output TGEMO.obo')
+# download.file('https://github.com/ontodev/robot/releases/download/v1.9.6/robot.jar',destfile = 'robot.jar')
+# system('java -jar robot.jar convert --input TGEMO.OWL --format obo --output TGEMO.obo')
 
 tgemo = ontologyIndex::get_ontology('TGEMO.obo',extract_tags = 'everything')
 
@@ -21,6 +22,7 @@ template = readLines('site_src/src/term_template') %>% paste(collapse = '\n')
 
 for (i in seq_along(tgemo$id)){
     id = tgemo$id[i] %>% gsub(":","_",.,fixed =TRUE)
+    id = id %>% str_extract(pattern = 'TGEMO_[0-9]*')
     name = tgemo$name[i]
     description = tgmo$def[[i]] %>%
         gsub("\\]|\\[|\\\"","",x=.) %>%
